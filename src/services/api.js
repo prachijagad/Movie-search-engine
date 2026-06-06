@@ -1,8 +1,17 @@
 const API_KEY = "3b834b1e";
-const BASE_URL = "http://www.omdbapi.com/?i=tt3896198&apikey=3b834b1e";
+const BASE_URL = "https://www.omdbapi.com/";
 
-export const getPopularMovies = async() => {
-    const res = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`);
-    const data = res.json();
-    return data.results;
+export const getPopularMovies = async () => {
+  const res = await fetch(
+    `${BASE_URL}?apikey=${API_KEY}&s=avengers`
+  );
+
+  const data = await res.json();
+  return data.Search || [];
+};
+
+export const searchMovies = async() => {
+    const res = await fetch(`${BASE_URL}?api_key=${API_KEY}&s=${encodeURIComponent(query)}`);
+    const data = await res.json();
+    return data.Search || [];
 }

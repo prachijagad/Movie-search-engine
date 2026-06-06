@@ -1,27 +1,26 @@
-import React from 'react'
-import '../css/MovieCard.css';
+import React from "react";
+import "../css/MovieCard.css";
+import { useState } from "react";
 
-const MovieCard = ({movie}) => {
+const MovieCard = ({ movie }) => {
+    const [like, setLike] = useState(false);
 
-    const onLike = () => {
-        alert("Click");
-    }
 
   return (
-    <div className='movie-card'>
-        <div className='movie-poster'>
-            <img src={movie.url} alt={movie.title} />
-            <div className='movie-overlay'>
-                <button className='favourite-btn' onClick={onLike}> Like </button>
-            </div>
+    <div className="movie-card">
+      <div className="movie-poster">
+        <img src={movie.Poster} alt={movie.Title} />
+        <div className="movie-overlay">
+          <button className="favorite-btn" onClick={() => setLike(!like)}>{like ? "❤️" : "🤍"}</button>
         </div>
+      </div>
 
-        <div className='movie-info'>
-            <h3>{movie.title}</h3>
-            <p>{movie.release_date}</p>
-        </div>
+      <div className="movie-info">
+        <h3>{movie.Title}</h3>
+        <p>{movie.Year}</p>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default MovieCard
+export default MovieCard;

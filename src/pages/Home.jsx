@@ -1,17 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MovieCard from "../components/MovieCard";
 import { useState } from "react";
 import '../css/Home.css';
+import { getPopularMovies, searchMovies } from "../services/api";
 
 const Home = () => {
 
     const [searchQuery, setSearchQuery] = useState("");
 
-  const movies = [
-    { id: 1, title: "John Wick", release_date: "2020" },
-    { id: 2, title: "Terminator", release_date: "1999" },
-    { id: 3, title: "The Matrix", release_date: "1998" },
-  ];
+  const [movies, setMovies] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadPopularMovies = async () => {
+      try{
+        const popularMovies = await getPopularMovies();
+        setMovies(popularMovies);
+      }catch(err) {
+        console.log(err)
+        setError("Failed to load movies...");
+      }
+      finally{
+        setLoading(false);
+      }
+    }
+
+    loadPopularMovies();
+  }, []);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -19,7 +35,16 @@ const Home = () => {
     setSearchQuery("");
   };
 
+   if (loading) {
+    return <h2>Loading...</h2>;
+   }
+
+   if(error){
+    return <h2>{error}</h2>;
+   }
+
   return (
+   
     <div className="home">
       <form className="search-form" onSubmit={handleChange}>
         <input
@@ -35,8 +60,7 @@ const Home = () => {
       </form>
       <div className="movie-grid">
         {movies.map((movie) => (
-            movie.title.toLowerCase().startsWith(searchQuery) &&
-          (<MovieCard movie={movie} key={movie.id} />)
+          <MovieCard movie={movie} key={movie.imdbID} />
         ))}
       </div>
     </div>
