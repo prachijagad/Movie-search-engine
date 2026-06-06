@@ -3,8 +3,8 @@ import '../css/Navbar.css';
 
 function Navbar() {
     console.log("navbar rendered");
-    return 
-    (
+
+    return (
     <div className="navbar">
         <div className="navbar-brand">
             <Link to="/">Movie App</Link>

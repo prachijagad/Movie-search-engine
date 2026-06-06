@@ -10,8 +10,8 @@ export const getPopularMovies = async () => {
   return data.Search || [];
 };
 
-export const searchMovies = async() => {
-    const res = await fetch(`${BASE_URL}?api_key=${API_KEY}&s=${encodeURIComponent(query)}`);
+export const searchMovies = async(query) => {
+    const res = await fetch(`${BASE_URL}?apikey=${API_KEY}&s=${encodeURIComponent(query)}`);
     const data = await res.json();
     return data.Search || [];
 }
