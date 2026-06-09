@@ -11,12 +11,9 @@ import { useTheme } from "./contexts/ThemeContext";
 
 function App() {
   const { theme } = useTheme();
-  console.log(theme);
   return (
     <>
-    <ThemeProvider>
     <div className={theme}>
-    <MovieProvider>
       <Navbar/>
       <main className="main-content">
         <Routes>
@@ -24,10 +21,8 @@ function App() {
           <Route path="/favorites" element={<Favourites/>}/>
         </Routes>
       </main>
-      </MovieProvider>
      
       </div>
-       </ThemeProvider>
     </>
   );
 }
