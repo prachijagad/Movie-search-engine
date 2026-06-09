@@ -1,10 +1,10 @@
 import {useState, useContext, useEffect, createContext, Children} from "react";
 
-const MovieContext = createContext();
+export const MovieContext = createContext();
 
 export const useMovieContext = () => useContext(MovieContext);
 
-export function MovieProvider({Children}) {
+export function MovieProvider({children}) {
     const [favorite, setFavorite] = useState([]);
 
     useEffect(() => {
@@ -15,7 +15,7 @@ export function MovieProvider({Children}) {
 
     useEffect(() => {
         localStorage.setItem('favorite', JSON.stringify(favorite));
-    }, [favorite])
+    }, [favorite]);
 
     const addToFavorite = (movie) => {
         setFavorite(prev => [...prev, movie]);
@@ -28,7 +28,14 @@ export function MovieProvider({Children}) {
     const isFavorite = (movieId) =>  {
         return favorite.some(movie => movie.imdbID === movieId)
     }
-    return <MovieContext.Provider>
-        {Children}
+
+    const values = {
+        favorite,
+        addToFavorite,
+        removeFromFavorite,
+        isFavorite
+    }
+    return <MovieContext.Provider value={values}>
+        {children}
     </MovieContext.Provider>
 }

@@ -6,3 +6,16 @@
   display: flex;
   flex-direction: column;
 }
+.light{
+  background-color: white !important; 
+  color: black !important;
+}
+.black {
+  background-color: #121212 !important;
+  color: whitesmoke !important;
+}
+
+.light,
+.black {
+  min-height: 100vh;
+}
